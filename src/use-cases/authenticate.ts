@@ -23,7 +23,10 @@ export class AuthenticateUseCase {
 
     if (!user) throw new InvalidCredentialsError();
 
-    const doesPasswordMatches = bcryptjs.compare(password, user.password_hash);
+    const doesPasswordMatches = await bcryptjs.compare(
+      password,
+      user.password_hash
+    );
 
     if (!doesPasswordMatches) throw new InvalidCredentialsError();
     return { user };
