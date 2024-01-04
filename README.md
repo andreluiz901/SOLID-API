@@ -7,8 +7,8 @@
 - [x] Deve ser possível obter o perfil do usuário logado;
 - [x] Deve ser possível obter o número de check-ins realizados pelo usuário logado;
 - [x] Deve ser possível o usuário obter o histórico de check-ins;
-- [ ] Deve ser possível localizar a academia mais próxima;
-- [ ] Deve ser possíve o usuário buscar a academia pelo nome;
+- [ ] Deve ser possível localizar as academias mais próximas (até 10km);
+- [x] Deve ser possíve o usuário buscar a academia pelo nome;
 - [x] Deve ser possível o usuário realizar o check-in em uma cademia;
 - [ ] Deve ser possível validar o check-in de um usuário;
 - [x] Deve ser possível cadastrar uma academia;
