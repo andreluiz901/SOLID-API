@@ -11,7 +11,7 @@
 - [ ] Deve ser possíve o usuário buscar a academia pelo nome;
 - [x] Deve ser possível o usuário realizar o check-in em uma cademia;
 - [ ] Deve ser possível validar o check-in de um usuário;
-- [ ] Deve ser possível cadastrar uma academia;
+- [x] Deve ser possível cadastrar uma academia;
 
 ## Regras de Negócio
 
