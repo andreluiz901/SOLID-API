@@ -1,24 +1,26 @@
 import { expect, describe, it } from "vitest";
 import { RegisterUseCase } from "./register";
 import bcryptjs from "bcryptjs";
+import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
+import { UserAlreadyExistsError } from "./errors/user-already-exists-error";
 
 describe("Register Use Case", () => {
-  it("Should hash user password upon registration", async () => {
-    const registerUseCase = new RegisterUseCase({
-      async findByEmail(email) {
-        return null;
-      },
+  it("Should  be able to register", async () => {
+    const usersRepository = new InMemoryUsersRepository();
+    const registerUseCase = new RegisterUseCase(usersRepository);
 
-      async create(data) {
-        return {
-          id: "user-1",
-          name: data.name,
-          email: data.email,
-          password_hash: data.password_hash,
-          created_at: new Date(),
-        };
-      },
+    const { user } = await registerUseCase.execute({
+      name: "valid_name",
+      email: "valid_email@email.com",
+      password: "123456",
     });
+
+    expect(user.id).toEqual(expect.any(String));
+  });
+
+  it("Should hash user password upon registration", async () => {
+    const usersRepository = new InMemoryUsersRepository();
+    const registerUseCase = new RegisterUseCase(usersRepository);
 
     const { user } = await registerUseCase.execute({
       name: "valid_name",
@@ -32,5 +34,26 @@ describe("Register Use Case", () => {
     );
 
     expect(isPasswordCorretlyHashed).toBe(true);
+  });
+
+  it("Should not be able to register with same email twice", async () => {
+    const usersRepository = new InMemoryUsersRepository();
+    const registerUseCase = new RegisterUseCase(usersRepository);
+
+    const email = "valid_email@email.com";
+
+    await registerUseCase.execute({
+      name: "valid_name",
+      email,
+      password: "123456",
+    });
+
+    expect(() =>
+      registerUseCase.execute({
+        name: "valid_name",
+        email,
+        password: "123456",
+      })
+    ).rejects.toBeInstanceOf(UserAlreadyExistsError);
   });
 });
