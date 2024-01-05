@@ -4,7 +4,7 @@ declare module "@fastify/jwt" {
   export interface FastifyJWT {
     payload?: { id: number };
     user: {
-      sub: string;
+      id: string;
     };
   }
 }
