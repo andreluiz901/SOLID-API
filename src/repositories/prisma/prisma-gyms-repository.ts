@@ -23,7 +23,7 @@ export class PrismaGymsRepository implements GymsRepository {
         },
       },
       take: 20,
-      skip: (20 - 1) * 20,
+      skip: (page - 1) * 20,
     });
 
     return gyms;

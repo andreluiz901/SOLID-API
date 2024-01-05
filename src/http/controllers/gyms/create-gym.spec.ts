@@ -1,8 +1,9 @@
 import request from "supertest";
 import { app } from "@/app";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { createAndAuthenticateUser } from "@/utils/tests/create-and-authenticate-user";
 
-describe("Register (e2e)", () => {
+describe("Create Gym (e2e)", () => {
   beforeAll(async () => {
     app.ready();
   });
@@ -11,12 +12,20 @@ describe("Register (e2e)", () => {
     app.close();
   });
 
-  it("should be able to register", async () => {
-    const response = await request(app.server).post("/users").send({
-      name: "valid_name",
-      email: "example@email.com",
-      password: "valid_password@123456",
-    });
-    expect(response.statusCode).toBe(201);
+  it("should be able to create gym ", async () => {
+    const { token } = await createAndAuthenticateUser(app);
+
+    const response = await request(app.server)
+      .post("/gyms")
+      .send({
+        title: "gym_name",
+        description: "a_gym_description",
+        phone: "1122334455",
+        latitude: -7.2323491,
+        longitude: -39.3135123,
+      })
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.statusCode).toEqual(201);
   });
 });
