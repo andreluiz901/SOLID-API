@@ -1,0 +1,9 @@
+{
+  "name": "vitest-enviroments-prisma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "prisma-test-enviroment.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
