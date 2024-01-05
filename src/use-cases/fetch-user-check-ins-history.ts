@@ -21,7 +21,6 @@ export class FetchUserCheckInHistoryUseCase {
       userId,
       page
     );
-
     return { checkIns };
   }
 }
