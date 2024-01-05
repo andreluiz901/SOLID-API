@@ -12,7 +12,7 @@ export async function nearby(req: FastifyRequest, reply: FastifyReply) {
     }),
   });
 
-  const { latitude, longitude } = searchNearbyGymsQuerySchema.parse(req.params);
+  const { latitude, longitude } = searchNearbyGymsQuerySchema.parse(req.query);
 
   const fetchNearbyGymsUseCase = makeFetchNearbygymsUseCase();
 
