@@ -20,10 +20,10 @@ export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
     });
 
     const refreshToken = await reply.jwtSign(
-      { id: user.id },
+      { id: user.id, role: user.role },
       { sign: { expiresIn: "7d" } }
     );
-    const token = await reply.jwtSign({ id: user.id });
+    const token = await reply.jwtSign({ id: user.id, role: user.role });
 
     return reply
       .setCookie("refreshToken", refreshToken, {
